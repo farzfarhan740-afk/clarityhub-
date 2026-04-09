@@ -2,40 +2,43 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <title>ClarityHub</title>
-  <style>
-    body {
-      background: #0f0f0f;
-      color: white;
-      font-family: Arial;
-      text-align: center;
-      padding: 50px;
-    }
-    .box {
-      background: #1f1f1f;
-      padding: 20px;
-      border-radius: 10px;
-    }
-    input, button {
-      margin-top: 10px;
-      padding: 10px;
-      border-radius: 5px;
-      border: none;
-    }
-    button {
-      background: #00ffcc;
-      color: black;
-      font-weight: bold;
-    }
-  </style>
+  <title>ClarityHub Pro</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-  <h1>🚀 ClarityHub</h1>
-  <div class="box">
-    <p>Upload video kamu:</p>
-    <input type="file">
-    <br>
-    <button>Convert ke HD</button>
+<body class="bg-black text-white">
+
+  <!-- Navbar -->
+  <nav class="flex justify-between p-4 bg-gray-900 shadow">
+    <h1 class="text-xl font-bold text-cyan-400">🚀 ClarityHub</h1>
+    <button class="bg-cyan-500 px-4 py-1 rounded">Pro</button>
+  </nav>
+
+  <!-- Hero -->
+  <section class="text-center mt-10">
+    <h2 class="text-3xl font-bold">Ubah Video Jadi HD 🔥</h2>
+    <p class="text-gray-400 mt-2">Naikin kualitas video sebelum upload TikTok</p>
+  </section>
+
+  <!-- Upload Box -->
+  <div class="flex justify-center mt-10">
+    <div class="bg-gray-900 p-6 rounded-xl shadow-lg w-80 text-center">
+      <input type="file" class="mb-4 text-sm">
+      <button onclick="convertVideo()" class="bg-cyan-500 w-full py-2 rounded font-bold">
+        Convert ke HD
+      </button>
+      <p id="status" class="text-green-400 mt-3"></p>
+    </div>
   </div>
+
+  <!-- Script -->
+  <script>
+    function convertVideo() {
+      document.getElementById("status").innerText = "🚀 Sedang convert (simulasi)...";
+      setTimeout(() => {
+        document.getElementById("status").innerText = "✅ Selesai! (demo)";
+      }, 2000);
+    }
+  </script>
+
 </body>
 </html>
