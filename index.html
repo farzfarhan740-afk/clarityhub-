@@ -2,78 +2,59 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <title>ClarityHub Pro</title>
+  <title>ClarityHub AI</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    .fade-in {
-      animation: fade 1s ease-in-out;
-    }
-    @keyframes fade {
-      from {opacity: 0; transform: translateY(20px);}
-      to {opacity: 1; transform: translateY(0);}
-    }
-  </style>
 </head>
-<body class="bg-black text-white">
+<body class="bg-black text-white flex items-center justify-center h-screen">
 
-  <!-- Navbar -->
-  <nav class="flex justify-between items-center p-4 bg-black/50 backdrop-blur">
-    <h1 class="text-xl font-bold text-cyan-400">🚀 ClarityHub</h1>
-    <span class="bg-cyan-500 px-3 py-1 rounded text-black text-sm">PRO</span>
-  </nav>
+  <!-- LOGIN BOX -->
+  <div id="loginBox" class="bg-gray-900 p-6 rounded-xl w-80 text-center">
+    <h1 class="text-2xl font-bold text-cyan-400 mb-4">🔐 Login ClarityHub</h1>
 
-  <!-- Hero -->
-  <div class="text-center mt-12 fade-in">
-    <h2 class="text-4xl font-bold">Upgrade Video Jadi HD 🔥</h2>
-    <p class="text-gray-400 mt-2">Simple, cepat, tanpa ribet</p>
+    <input id="user" placeholder="Username" class="w-full p-2 mb-3 rounded text-black">
+    <input id="pass" type="password" placeholder="Password" class="w-full p-2 mb-3 rounded text-black">
+
+    <button onclick="login()" class="bg-cyan-500 w-full py-2 rounded font-bold">
+      Login
+    </button>
+
+    <p id="error" class="text-red-400 mt-2"></p>
   </div>
 
-  <!-- Card -->
-  <div class="flex justify-center mt-10 fade-in">
-    <div class="bg-white/5 backdrop-blur p-6 rounded-2xl w-80 shadow-xl text-center">
+  <!-- APP -->
+  <div id="app" class="hidden text-center">
 
-      <input type="file" id="videoInput" accept="video/*" class="mb-4 text-sm">
+    <h1 class="text-3xl font-bold mb-4">🚀 ClarityHub AI HD</h1>
 
-      <video id="preview" controls class="hidden rounded mb-3 w-full"></video>
+    <input type="file" id="videoInput" class="mb-3">
+    <br>
 
-      <button onclick="previewVideo()" class="bg-cyan-500 w-full py-2 rounded font-bold hover:scale-105 transition">
-        Preview Video
-      </button>
+    <button onclick="fakeAI()" class="bg-green-500 px-4 py-2 rounded">
+      AI Boost HD
+    </button>
 
-      <button onclick="fakeHD()" class="bg-green-500 w-full py-2 rounded mt-3 font-bold hover:scale-105 transition">
-        Boost HD
-      </button>
+    <p id="status" class="mt-3 text-green-400"></p>
 
-      <!-- Loading -->
-      <div id="loading" class="hidden mt-3 text-yellow-400">
-        ⏳ Processing...
-      </div>
-
-      <p id="status" class="mt-3 text-green-400"></p>
-
-    </div>
   </div>
 
-  <!-- Script -->
   <script>
-    function previewVideo() {
-      const file = document.getElementById('videoInput').files[0];
-      const video = document.getElementById('preview');
+    function login() {
+      const user = document.getElementById("user").value;
+      const pass = document.getElementById("pass").value;
 
-      if (file) {
-        video.src = URL.createObjectURL(file);
-        video.classList.remove("hidden");
+      if(user === "admin" && pass === "123") {
+        document.getElementById("loginBox").classList.add("hidden");
+        document.getElementById("app").classList.remove("hidden");
+      } else {
+        document.getElementById("error").innerText = "Login salah!";
       }
     }
 
-    function fakeHD() {
-      document.getElementById("loading").classList.remove("hidden");
-      document.getElementById("status").innerText = "";
-
+    function fakeAI() {
+      document.getElementById("status").innerText = "🤖 AI sedang meningkatkan kualitas...";
       setTimeout(() => {
-        document.getElementById("loading").classList.add("hidden");
-        document.getElementById("status").innerText = "✅ Video berhasil di-upgrade (demo)";
-      }, 2500);
+        document.getElementById("status").innerText = "✅ Selesai (AI demo)";
+      }, 2000);
     }
   </script>
 
