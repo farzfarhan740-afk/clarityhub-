@@ -1,34 +1,23 @@
-# clarityhub-
-Web
-const express = require("express");
-const multer = require("multer");
-const { exec } = require("child_process");
+async function kirim() {
+  const input = document.getElementById("userInput");
+  const chatBox = document.getElementById("chat-box");
 
-const app = express();
-const port = 3000;
+  let userText = input.value;
+  chatBox.innerHTML += "<p><b>Kamu:</b> " + userText + "</p>";
 
-// simpan file upload
-const upload = multer({ dest: "uploads/" });
+  input.value = "";
 
-// akses folder public
-app.use(express.static("public"));
-
-// API enhance video
-app.post("/enhance", upload.single("video"), (req, res) => {
-  const input = req.file.path;
-  const output = "public/output.mp4";
-
-  const cmd = `ffmpeg -i ${input} -vf scale=1280:720 -b:v 2000k ${output}`;
-
-  exec(cmd, (err) => {
-    if (err) {
-      console.log(err);
-      return res.send("Gagal proses video");
-    }
-    res.json({ video: "output.mp4" });
+  const response = await fetch("https://ISI_LINK_VERCEL_KAMU/api/chat", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      message: userText
+    })
   });
-});
 
-app.listen(port, () => {
-  console.log(`Server jalan di http://localhost:${port}`);
-});
+  const data = await response.json();
+
+  chatBox.innerHTML += "<p><b>AI:</b> " + data.reply + "</p>";
+}
