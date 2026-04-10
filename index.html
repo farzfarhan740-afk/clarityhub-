@@ -2,62 +2,19 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <title>ClarityHub Pro</title>
+  <title>ClarityHub V2</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-black text-white">
 
-  <!-- Navbar -->
-  <nav class="flex justify-between p-4 bg-gray-900">
-    <h1 class="text-xl font-bold text-cyan-400">🚀 ClarityHub</h1>
-    <span class="text-sm text-gray-400">Pro</span>
+  <nav class="p-4 bg-gray-900 text-center text-cyan-400 font-bold">
+    🚀 ClarityHub V2 (UPDATE)
   </nav>
 
-  <!-- Title -->
-  <div class="text-center mt-8">
-    <h2 class="text-3xl font-bold">Naikin Kualitas Video 🔥</h2>
-    <p class="text-gray-400">Preview sebelum upload ke TikTok</p>
+  <div class="text-center mt-10">
+    <h1 class="text-3xl font-bold">🔥 UPDATE BERHASIL 🔥</h1>
+    <p class="text-gray-400">Kalau ini muncul berarti web kamu sudah ke-update</p>
   </div>
-
-  <!-- Upload Box -->
-  <div class="flex justify-center mt-10">
-    <div class="bg-gray-900 p-6 rounded-xl w-80 text-center">
-
-      <input type="file" id="videoInput" accept="video/*" class="mb-4">
-
-      <video id="preview" controls class="hidden rounded mb-3"></video>
-
-      <button onclick="previewVideo()" class="bg-cyan-500 w-full py-2 rounded font-bold">
-        Preview Video
-      </button>
-
-      <button onclick="fakeHD()" class="bg-green-500 w-full py-2 rounded mt-3 font-bold">
-        Boost HD
-      </button>
-
-      <p id="status" class="mt-3 text-green-400"></p>
-
-    </div>
-  </div>
-
-  <script>
-    function previewVideo() {
-      const file = document.getElementById('videoInput').files[0];
-      const video = document.getElementById('preview');
-
-      if (file) {
-        video.src = URL.createObjectURL(file);
-        video.classList.remove("hidden");
-      }
-    }
-
-    function fakeHD() {
-      document.getElementById("status").innerText = "🚀 Meningkatkan kualitas...";
-      setTimeout(() => {
-        document.getElementById("status").innerText = "✅ Video terlihat lebih jernih (simulasi)";
-      }, 2000);
-    }
-  </script>
 
 </body>
 </html>
