@@ -60,3 +60,65 @@
 
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>ClarityHub AI</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-black text-white flex items-center justify-center h-screen">
+
+  <!-- LOGIN BOX -->
+  <div id="loginBox" class="bg-gray-900 p-6 rounded-xl w-80 text-center">
+    <h1 class="text-2xl font-bold text-cyan-400 mb-4">🔐 Login ClarityHub</h1>
+
+    <input id="user" placeholder="Username" class="w-full p-2 mb-3 rounded text-black">
+    <input id="pass" type="password" placeholder="Password" class="w-full p-2 mb-3 rounded text-black">
+
+    <button onclick="login()" class="bg-cyan-500 w-full py-2 rounded font-bold">
+      Login
+    </button>
+
+    <p id="error" class="text-red-400 mt-2"></p>
+  </div>
+
+  <!-- APP -->
+  <div id="app" class="hidden text-center">
+
+    <h1 class="text-3xl font-bold mb-4">🚀 ClarityHub AI HD</h1>
+
+    <input type="file" id="videoInput" class="mb-3">
+    <br>
+
+    <button onclick="fakeAI()" class="bg-green-500 px-4 py-2 rounded">
+      AI Boost HD
+    </button>
+
+    <p id="status" class="mt-3 text-green-400"></p>
+
+  </div>
+
+  <script>
+    function login() {
+      const user = document.getElementById("user").value;
+      const pass = document.getElementById("pass").value;
+
+      if(user === "admin" && pass === "123") {
+        document.getElementById("loginBox").classList.add("hidden");
+        document.getElementById("app").classList.remove("hidden");
+      } else {
+        document.getElementById("error").innerText = "Login salah!";
+      }
+    }
+
+    function fakeAI() {
+      document.getElementById("status").innerText = "🤖 AI sedang meningkatkan kualitas...";
+      setTimeout(() => {
+        document.getElementById("status").innerText = "✅ Selesai (AI demo)";
+      }, 2000);
+    }
+  </script>
+
+</body>
+</html>
