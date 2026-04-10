@@ -2,123 +2,133 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <title>ClarityHub AI</title>
+  <title>ClarityHub</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-black text-white flex items-center justify-center h-screen">
 
-  <!-- LOGIN BOX -->
-  <div id="loginBox" class="bg-gray-900 p-6 rounded-xl w-80 text-center">
-    <h1 class="text-2xl font-bold text-cyan-400 mb-4">🔐 Login ClarityHub</h1>
+<body class="bg-gradient-to-br from-blue-900 via-blue-700 to-blue-500 text-white font-sans">
 
-    <input id="user" placeholder="Username" class="w-full p-2 mb-3 rounded text-black">
-    <input id="pass" type="password" placeholder="Password" class="w-full p-2 mb-3 rounded text-black">
+<!-- LOGIN -->
+<div id="loginPage" class="flex items-center justify-center h-screen">
+  <div class="bg-white/10 backdrop-blur p-6 rounded-2xl w-80 shadow-xl">
 
-    <button onclick="login()" class="bg-cyan-500 w-full py-2 rounded font-bold">
+    <h1 class="text-2xl font-bold text-center mb-4">🚀 ClarityHub</h1>
+
+    <input id="user" placeholder="Username"
+      class="w-full p-2 mb-3 rounded bg-white/20 text-white placeholder-gray-200 border border-white/30">
+
+    <input id="pass" type="password" placeholder="Password"
+      class="w-full p-2 mb-3 rounded bg-white/20 text-white placeholder-gray-200 border border-white/30">
+
+    <button onclick="login()"
+      class="w-full bg-white text-blue-700 py-2 rounded font-semibold hover:opacity-80">
       Login
     </button>
 
-    <p id="error" class="text-red-400 mt-2"></p>
+    <p id="error" class="text-red-300 text-sm mt-2 text-center"></p>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div id="appPage" class="hidden">
+
+  <!-- Navbar -->
+  <nav class="flex justify-between items-center p-4 bg-black/20 backdrop-blur">
+    <h1 class="font-bold text-lg">🚀 ClarityHub</h1>
+    <button onclick="logout()" class="text-sm text-red-200">Logout</button>
+  </nav>
+
+  <!-- Content -->
+  <div class="p-6 flex justify-center">
+    <div class="w-full max-w-md bg-white/10 backdrop-blur p-6 rounded-2xl shadow-xl text-center">
+
+      <h2 class="text-xl font-semibold mb-4">AI Video Enhancer</h2>
+
+      <input type="file" id="videoInput" accept="video/*"
+        class="mb-4 w-full text-sm text-white">
+
+      <video id="preview" controls class="hidden w-full rounded mb-3"></video>
+
+      <button onclick="previewVideo()"
+        class="w-full bg-white text-blue-700 py-2 rounded mb-2 font-semibold hover:opacity-80">
+        Preview Video
+      </button>
+
+      <button onclick="processVideo()"
+        class="w-full bg-blue-800 py-2 rounded font-semibold hover:opacity-80">
+        AI Boost HD
+      </button>
+
+      <!-- Loading -->
+      <div id="loading" class="hidden text-yellow-200 mt-3">
+        ⏳ Processing...
+      </div>
+
+      <!-- Download -->
+      <a id="downloadBtn"
+        class="hidden block mt-3 bg-green-400 text-black py-2 rounded font-semibold hover:opacity-80">
+        ⬇️ Download Video
+      </a>
+
+      <p id="status" class="mt-2 text-green-200"></p>
+
+    </div>
   </div>
 
-  <!-- APP -->
-  <div id="app" class="hidden text-center">
+</div>
 
-    <h1 class="text-3xl font-bold mb-4">🚀 ClarityHub AI HD</h1>
+<script>
+let videoURL = "";
 
-    <input type="file" id="videoInput" class="mb-3">
-    <br>
+// LOGIN
+function login() {
+  const user = document.getElementById("user").value;
+  const pass = document.getElementById("pass").value;
 
-    <button onclick="fakeAI()" class="bg-green-500 px-4 py-2 rounded">
-      AI Boost HD
-    </button>
+  if(user === "admin" && pass === "123") {
+    document.getElementById("loginPage").classList.add("hidden");
+    document.getElementById("appPage").classList.remove("hidden");
+  } else {
+    document.getElementById("error").innerText = "Login salah";
+  }
+}
 
-    <p id="status" class="mt-3 text-green-400"></p>
+// LOGOUT
+function logout() {
+  document.getElementById("appPage").classList.add("hidden");
+  document.getElementById("loginPage").classList.remove("hidden");
+}
 
-  </div>
+// PREVIEW
+function previewVideo() {
+  const file = document.getElementById('videoInput').files[0];
+  const video = document.getElementById('preview');
 
-  <script>
-    function login() {
-      const user = document.getElementById("user").value;
-      const pass = document.getElementById("pass").value;
+  if (file) {
+    videoURL = URL.createObjectURL(file);
+    video.src = videoURL;
+    video.classList.remove("hidden");
+  }
+}
 
-      if(user === "admin" && pass === "123") {
-        document.getElementById("loginBox").classList.add("hidden");
-        document.getElementById("app").classList.remove("hidden");
-      } else {
-        document.getElementById("error").innerText = "Login salah!";
-      }
-    }
+// PROCESS (DEMO)
+function processVideo() {
+  document.getElementById("loading").classList.remove("hidden");
+  document.getElementById("status").innerText = "";
+  document.getElementById("downloadBtn").classList.add("hidden");
 
-    function fakeAI() {
-      document.getElementById("status").innerText = "🤖 AI sedang meningkatkan kualitas...";
-      setTimeout(() => {
-        document.getElementById("status").innerText = "✅ Selesai (AI demo)";
-      }, 2000);
-    }
-  </script>
+  setTimeout(() => {
+    document.getElementById("loading").classList.add("hidden");
+    document.getElementById("status").innerText = "✅ Selesai (demo)";
+
+    const download = document.getElementById("downloadBtn");
+    download.href = videoURL;
+    download.download = "clarityhub-video.mp4";
+    download.classList.remove("hidden");
+
+  }, 2000);
+}
+</script>
 
 </body>
-</html>
-<!DOCTYPE html>
-<html lang="id">
-<head>
-  <meta charset="UTF-8">
-  <title>ClarityHub AI</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-black text-white flex items-center justify-center h-screen">
-
-  <!-- LOGIN BOX -->
-  <div id="loginBox" class="bg-gray-900 p-6 rounded-xl w-80 text-center">
-    <h1 class="text-2xl font-bold text-cyan-400 mb-4">🔐 Login ClarityHub</h1>
-
-    <input id="user" placeholder="Username" class="w-full p-2 mb-3 rounded text-black">
-    <input id="pass" type="password" placeholder="Password" class="w-full p-2 mb-3 rounded text-black">
-
-    <button onclick="login()" class="bg-cyan-500 w-full py-2 rounded font-bold">
-      Login
-    </button>
-
-    <p id="error" class="text-red-400 mt-2"></p>
-  </div>
-
-  <!-- APP -->
-  <div id="app" class="hidden text-center">
-
-    <h1 class="text-3xl font-bold mb-4">🚀 ClarityHub AI HD</h1>
-
-    <input type="file" id="videoInput" class="mb-3">
-    <br>
-
-    <button onclick="fakeAI()" class="bg-green-500 px-4 py-2 rounded">
-      AI Boost HD
-    </button>
-
-    <p id="status" class="mt-3 text-green-400"></p>
-
-  </div>
-
-  <script>
-    function login() {
-      const user = document.getElementById("user").value;
-      const pass = document.getElementById("pass").value;
-
-      if(user === "admin" && pass === "123") {
-        document.getElementById("loginBox").classList.add("hidden");
-        document.getElementById("app").classList.remove("hidden");
-      } else {
-        document.getElementById("error").innerText = "Login salah!";
-      }
-    }
-
-    function fakeAI() {
-      document.getElementById("status").innerText = "🤖 AI sedang meningkatkan kualitas...";
-      setTimeout(() => {
-        document.getElementById("status").innerText = "✅ Selesai (AI demo)";
-      }, 2000);
-    }
-  </script>
-
-</body>
-</html>
+    </html>
