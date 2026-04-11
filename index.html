@@ -130,5 +130,25 @@ function processVideo() {
 }
 </script>
 
-</body>
-    </html>. 
+</body><div style="max-width:400px;margin:20px auto;">
+  <h2>ClarityHub AI</h2>
+  <textarea id="userInput" placeholder="Tanya apa aja..." style="width:100%;height:80px;"></textarea>
+  <button onclick="sendAI()">Kirim</button>
+  <p id="response"></p>
+</div>
+    </html>. <script>
+async function sendAI() {
+  const input = document.getElementById("userInput").value;
+
+  const res = await fetch("/api/ai", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ message: input })
+  });
+
+  const data = await res.json();
+  document.getElementById("response").innerText = data.reply;
+}
+    </script>
