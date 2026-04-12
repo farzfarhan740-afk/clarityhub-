@@ -1,16 +1,79 @@
-
 <!DOCTYPE html>
-<html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>ClarityHub</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial;
+      background: #0f0f0f;
+      color: white;
+      text-align: center;
+    }
+
+    h1 {
+      margin-top: 40px;
+    }
+
+    .box {
+      margin-top: 30px;
+    }
+
+    input {
+      width: 60%;
+      padding: 12px;
+      border-radius: 10px;
+      border: none;
+      font-size: 16px;
+    }
+
+    button {
+      padding: 12px 20px;
+      margin-left: 10px;
+      border: none;
+      border-radius: 10px;
+      background: #00ffcc;
+      color: black;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    video {
+      margin-top: 30px;
+      width: 70%;
+      border-radius: 15px;
+    }
+  </style>
+</head>
+
 <body>
 
-<h1>ClarityHub</h1>
-<button onclick="test()">Klik</button>
+  <h1>🎬 ClarityHub</h1>
+  <p>Download & Preview Video</p>
 
-<script>
-function test() {
-  alert("jalan");
-}
-</script>
+  <div class="box">
+    <input id="link" placeholder="Masukkan link video...">
+    <button onclick="preview()">Preview</button>
+  </div>
+
+  <video id="player" controls></video>
+
+  <script>
+    function preview() {
+      let url = document.getElementById("link").value;
+
+      if (url === "") {
+        alert("Masukkan link dulu!");
+        return;
+      }
+
+      // dummy video dulu (biar keliatan jalan)
+      document.getElementById("player").src =
+      "https://www.w3schools.com/html/mov_bbb.mp4";
+    }
+  </script>
 
 </body>
 </html>
