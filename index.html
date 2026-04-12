@@ -1,79 +1,83 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <title>ClarityHub</title>
+<meta charset="UTF-8">
+<title>ClarityHub Pro</title>
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial;
-      background: #0f0f0f;
-      color: white;
-      text-align: center;
-    }
+<style>
+body {
+  background: #0f0f0f;
+  color: white;
+  font-family: Arial;
+  text-align: center;
+}
 
-    h1 {
-      margin-top: 40px;
-    }
+input {
+  width: 60%;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+}
 
-    .box {
-      margin-top: 30px;
-    }
+button {
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  background: #00ffcc;
+  font-weight: bold;
+  cursor: pointer;
+}
 
-    input {
-      width: 60%;
-      padding: 12px;
-      border-radius: 10px;
-      border: none;
-      font-size: 16px;
-    }
+.card {
+  margin-top: 30px;
+}
 
-    button {
-      padding: 12px 20px;
-      margin-left: 10px;
-      border: none;
-      border-radius: 10px;
-      background: #00ffcc;
-      color: black;
-      font-weight: bold;
-      cursor: pointer;
-    }
+img {
+  width: 300px;
+  border-radius: 10px;
+}
 
-    video {
-      margin-top: 30px;
-      width: 70%;
-      border-radius: 15px;
-    }
-  </style>
+a {
+  display: block;
+  margin-top: 10px;
+  color: #00ffcc;
+}
+</style>
 </head>
 
 <body>
 
-  <h1>🎬 ClarityHub</h1>
-  <p>Download & Preview Video</p>
+<h1>🎬 ClarityHub Pro</h1>
 
-  <div class="box">
-    <input id="link" placeholder="Masukkan link video...">
-    <button onclick="preview()">Preview</button>
-  </div>
+<input id="url" placeholder="Paste link video...">
+<button onclick="getVideo()">Proses</button>
 
-  <video id="player" controls></video>
+<div id="result" class="card"></div>
 
-  <script>
-    function preview() {
-      let url = document.getElementById("link").value;
+<script>
+async function getVideo() {
+  let url = document.getElementById("url").value;
 
-      if (url === "") {
-        alert("Masukkan link dulu!");
-        return;
-      }
+  if (!url) {
+    alert("Masukkan link!");
+    return;
+  }
 
-      // dummy video dulu (biar keliatan jalan)
-      document.getElementById("player").src =
-      "https://www.w3schools.com/html/mov_bbb.mp4";
-    }
-  </script>
+  document.getElementById("result").innerHTML = "Loading...";
+
+  try {
+    let res = await fetch("https://api.allorigins.win/raw?url=" +
+      encodeURIComponent("https://api.vevioz.com/api/button/mp4/" + url));
+
+    let data = await res.text();
+
+    document.getElementById("result").innerHTML = data;
+
+  } catch (err) {
+    document.getElementById("result").innerHTML = "Gagal ambil video!";
+  }
+}
+</script>
 
 </body>
 </html>
