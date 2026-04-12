@@ -6,60 +6,92 @@
 
 <style>
 body {
-  background: #0f0f0f;
-  color: white;
+  margin: 0;
   font-family: Arial;
+  background: #0d0d0d;
+  color: white;
+}
+
+.container {
+  max-width: 800px;
+  margin: auto;
   text-align: center;
+  padding: 20px;
+}
+
+h1 {
+  margin-top: 30px;
+}
+
+.input-box {
+  display: flex;
+  margin-top: 20px;
 }
 
 input {
-  width: 60%;
+  flex: 1;
   padding: 12px;
-  border-radius: 10px;
+  border-radius: 10px 0 0 10px;
   border: none;
+  font-size: 16px;
 }
 
 button {
-  padding: 12px;
-  border-radius: 10px;
+  padding: 12px 20px;
   border: none;
   background: #00ffcc;
   font-weight: bold;
+  border-radius: 0 10px 10px 0;
   cursor: pointer;
 }
 
 .card {
   margin-top: 30px;
+  background: #1a1a1a;
+  padding: 20px;
+  border-radius: 15px;
 }
 
-img {
-  width: 300px;
+.thumbnail {
+  width: 100%;
   border-radius: 10px;
 }
 
-a {
-  display: block;
-  margin-top: 10px;
-  color: #00ffcc;
+.download-btn {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 10px 15px;
+  background: #00ffcc;
+  color: black;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: bold;
 }
 </style>
 </head>
 
 <body>
 
-<h1>🎬 ClarityHub Pro</h1>
+<div class="container">
 
-<input id="url" placeholder="Paste link video...">
-<button onclick="getVideo()">Proses</button>
+  <h1>🎬 ClarityHub Pro</h1>
+  <p>Download Video HD dengan mudah 🔥</p>
 
-<div id="result" class="card"></div>
+  <div class="input-box">
+    <input id="url" placeholder="Paste link video...">
+    <button onclick="getVideo()">Proses</button>
+  </div>
+
+  <div id="result"></div>
+
+</div>
 
 <script>
 async function getVideo() {
   let url = document.getElementById("url").value;
 
   if (!url) {
-    alert("Masukkan link!");
+    alert("Masukkan link dulu!");
     return;
   }
 
@@ -71,10 +103,14 @@ async function getVideo() {
 
     let data = await res.text();
 
-    document.getElementById("result").innerHTML = data;
+    document.getElementById("result").innerHTML =
+      `<div class="card">
+        <h3>Hasil Video</h3>
+        ${data}
+      </div>`;
 
   } catch (err) {
-    document.getElementById("result").innerHTML = "Gagal ambil video!";
+    document.getElementById("result").innerHTML = "Error ambil video!";
   }
 }
 </script>
