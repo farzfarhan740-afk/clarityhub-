@@ -128,4 +128,126 @@ function downloadHD() {
 </script>
 
 </body>
+</html><!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ClarityHub</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #0d0d0d;
+  color: white;
+}
+
+header {
+  padding: 15px;
+  text-align: center;
+  font-size: 22px;
+  font-weight: bold;
+  background: #111;
+}
+
+.container {
+  max-width: 500px;
+  margin: 30px auto;
+  padding: 20px;
+  background: #111;
+  border-radius: 15px;
+}
+
+input[type="file"] {
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  background: #222;
+  color: white;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  background: #00ffcc;
+  color: black;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+video {
+  width: 100%;
+  margin-top: 15px;
+  border-radius: 10px;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>ClarityHub</header>
+
+<div class="container">
+
+  <input type="file" id="uploadVideo" accept="video/*">
+
+  <button onclick="previewVideo()">Preview Video</button>
+
+  <video id="videoPlayer" controls></video>
+
+  <button onclick="downloadHD()">Convert ke HD</button>
+
+</div>
+
+<script>
+let selectedFile;
+
+function previewVideo() {
+  const fileInput = document.getElementById("uploadVideo");
+  const video = document.getElementById("videoPlayer");
+
+  selectedFile = fileInput.files[0];
+
+  if (!selectedFile) {
+    alert("Upload video dulu!");
+    return;
+  }
+
+  const url = URL.createObjectURL(selectedFile);
+  video.src = url;
+}
+
+function downloadHD() {
+  if (!selectedFile) {
+    alert("Upload video dulu!");
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append("video", selectedFile);
+
+  fetch("https://backend-kamu.up.railway.app/convert", {
+    method: "POST",
+    body: formData
+  })
+  .then(res => res.blob())
+  .then(data => {
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(data);
+    link.download = "video_hd.mp4";
+    link.click();
+  })
+  .catch(() => {
+    alert("Backend belum aktif!");
+  });
+}
+</script>
+
+</body>
 </html>
